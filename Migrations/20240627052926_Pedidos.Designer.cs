@@ -4,6 +4,7 @@ using ApiCrud.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiCrud.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240627052926_Pedidos")]
+    partial class Pedidos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,32 +44,13 @@ namespace ApiCrud.Migrations
                     b.ToTable("Pedido");
                 });
 
-            modelBuilder.Entity("ApiCrud.PizzaPedidos.PizzaPedido", b =>
+            modelBuilder.Entity("ApiCrud.Pizzas.Pizza", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("PedidoId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("Sabor1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("Sabor2")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PedidoId");
-
-                    b.ToTable("PizzaPedido");
-                });
-
-            modelBuilder.Entity("ApiCrud.Pizzas.Pizza", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Sabor")
@@ -78,10 +62,12 @@ namespace ApiCrud.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PedidoId");
+
                     b.ToTable("Pizza");
                 });
 
-            modelBuilder.Entity("ApiCrud.PizzaPedidos.PizzaPedido", b =>
+            modelBuilder.Entity("ApiCrud.Pizzas.Pizza", b =>
                 {
                     b.HasOne("ApiCrud.Pedidos.Pedido", null)
                         .WithMany("Pizzas")

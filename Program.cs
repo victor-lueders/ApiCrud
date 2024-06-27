@@ -1,4 +1,5 @@
 using ApiCrud.Data;
+using ApiCrud.Pedidos;
 using ApiCrud.Pizzas;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,5 +23,6 @@ app.UseHttpsRedirection();
 
 //Configurando as rotas
 app.AddEndpointPizza();
+app.AddEndpointPedido();
 
 app.Run();
