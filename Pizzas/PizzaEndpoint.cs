@@ -1,4 +1,5 @@
 ﻿using ApiCrud.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiCrud.Pizzas
 {
@@ -14,6 +15,12 @@ namespace ApiCrud.Pizzas
 
                 await context.Pizza.AddAsync(newPizza);
                 await context.SaveChangesAsync();
+            });
+
+            pizzaEndpoints.MapGet("", async (AppDbContext context) =>
+            {
+                var pizzas = await context.Pizza.ToListAsync();
+                return pizzas;
             });
         }
     }

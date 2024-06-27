@@ -47,18 +47,18 @@ namespace ApiCrud.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("PedidoId")
+                    b.Property<Guid?>("PedidoId1")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("Sabor1")
+                    b.Property<Guid>("PizzaId1")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("Sabor2")
+                    b.Property<Guid?>("PizzaId2")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PedidoId");
+                    b.HasIndex("PedidoId1");
 
                     b.ToTable("PizzaPedido");
                 });
@@ -85,7 +85,7 @@ namespace ApiCrud.Migrations
                 {
                     b.HasOne("ApiCrud.Pedidos.Pedido", null)
                         .WithMany("Pizzas")
-                        .HasForeignKey("PedidoId");
+                        .HasForeignKey("PedidoId1");
                 });
 
             modelBuilder.Entity("ApiCrud.Pedidos.Pedido", b =>

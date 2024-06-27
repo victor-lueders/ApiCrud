@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiCrud.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240627052926_Pedidos")]
-    partial class Pedidos
+    [Migration("20240627194826_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,13 +44,32 @@ namespace ApiCrud.Migrations
                     b.ToTable("Pedido");
                 });
 
-            modelBuilder.Entity("ApiCrud.Pizzas.Pizza", b =>
+            modelBuilder.Entity("ApiCrud.PizzaPedidos.PizzaPedido", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("PedidoId")
+                    b.Property<Guid?>("PedidoId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PizzaId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("PizzaId2")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PedidoId1");
+
+                    b.ToTable("PizzaPedido");
+                });
+
+            modelBuilder.Entity("ApiCrud.Pizzas.Pizza", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Sabor")
@@ -62,16 +81,14 @@ namespace ApiCrud.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PedidoId");
-
                     b.ToTable("Pizza");
                 });
 
-            modelBuilder.Entity("ApiCrud.Pizzas.Pizza", b =>
+            modelBuilder.Entity("ApiCrud.PizzaPedidos.PizzaPedido", b =>
                 {
                     b.HasOne("ApiCrud.Pedidos.Pedido", null)
                         .WithMany("Pizzas")
-                        .HasForeignKey("PedidoId");
+                        .HasForeignKey("PedidoId1");
                 });
 
             modelBuilder.Entity("ApiCrud.Pedidos.Pedido", b =>

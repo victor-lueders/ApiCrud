@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using ApiCrud.Pedidos;
+using ApiCrud.Pizzas;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApiCrud.PizzaPedidos
 {
@@ -6,24 +8,29 @@ namespace ApiCrud.PizzaPedidos
     {
         public Guid Id { get; init; }
 
-        [ForeignKey("Pizza")]
-        public Guid Sabor1 { get; set; }
+        [ForeignKey(nameof(Pizza))]
+        public Guid PizzaId1 { get; set; }
 
-        [ForeignKey("Pizza")]
-        public Guid? Sabor2 { get; set; }
+        [ForeignKey(nameof(Pizza))]
+        public Guid? PizzaId2 { get; set; } 
 
-        [ForeignKey("Pedido")]
-        private Guid IdPedido { get; set; }
+        [ForeignKey(nameof(Pedido))]
+        private Guid PedidoId { get; set; }
 
         public void SetIdPedido(Guid idPedido)
         {
-            IdPedido = idPedido;
+            PedidoId = idPedido;
         }
 
-        public PizzaPedido(Guid sabor1, Guid? sabor2)
+        public Guid GetIdPedido()
         {
-            Sabor1 = sabor1;
-            Sabor2 = sabor2;
+            return PedidoId;
+        }
+
+        public PizzaPedido(Guid pizzaId1, Guid? pizzaId2)
+        {
+            PizzaId1 = pizzaId1;
+            PizzaId2 = pizzaId2;
             Id = Guid.NewGuid();
         }
     }
